@@ -7,7 +7,7 @@ app = Flask(__name__)
 def sms():
     resp = MessagingResponse()
     inbMsg = request.values.get('Body')
-    pred, confidence = Prediction.detecting_fake_news(inbMsg)
+    pred, confidence = Prediction.detectingFakeNews(inbMsg)
 
     resp.message(
         f'The news headline you entered is {pred[0]!r} and corresponds to {confidence[0][1]!r}.')

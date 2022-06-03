@@ -1,4 +1,4 @@
-import prepocessing
+import Prepocessing
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
@@ -9,10 +9,10 @@ import nltk
 import nltk.corpus
 from nltk.tokenize import word_tokenize
 from gensim.models.word2vec import Word2Vec
-
+nltk.download('treebank')
 #creating feature vector - document term matrix
 countV = CountVectorizer()
-trainCount = countV.fit_transform(DataPrep.train_news['Statement'].values)
+trainCount = countV.fit_transform(Prepocessing.train_news['Statement'].values)
 
 print(countV)
 print(trainCount)
@@ -41,15 +41,15 @@ def get_tfidf_stats():
 
 
 #bag of words - with n-grams
-#countV_ngram = CountVectorizer(ngram_range=(1,3),stop_words='english')
-#tfidf_ngram  = TfidfTransformer(use_idf=True,smooth_idf=True)
+countV_ngram = CountVectorizer(ngram_range=(1,3),stop_words='english')
+tfidf_ngram  = TfidfTransformer(use_idf=True,smooth_idf=True)
 
 tfidf_ngram = TfidfVectorizer(stop_words='english', ngram_range=(1,4), use_idf=True, smooth_idf=True)
 
 #POS Tagging
 taggingSentences = nltk.corpus.treebank.tagged_sents()
 cutoff = int(.75 * len(taggingSentences))
-trainingSentences = DataPrep.train_news['Statement']
+trainingSentences = Prepocessing.train_news['Statement']
 print(trainingSentences)
 
 #Training POS tagger based on words

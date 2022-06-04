@@ -149,9 +149,9 @@ np.mean(predicted_svm_ngram == Prepocessing.test_news['Label'])
 
 #sgd classifier
 sgd_pipeline_ngram = Pipeline([
-         ('sgd_tfidf',FeatureSelection.tfidf_ngram),
-         ('sgd_clf',SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3, n_iter_no_change=5))
-         ])
+        ('sgd_tfidf',FeatureSelection.tfidf_ngram),
+        ('sgd_clf',SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3, n_iter_no_change=5))
+        ])
 
 sgd_pipeline_ngram.fit(Prepocessing.train_news['Statement'],Prepocessing.train_news['Label'])
 predicted_sgd_ngram = sgd_pipeline_ngram.predict(Prepocessing.test_news['Statement'])
@@ -194,8 +194,8 @@ to be low compared to rest of the models)
 #grid-search parameter optimization
 #random forest classifier parameters
 parameters = {'rf_tfidf__ngram_range': [(1, 1), (1, 2),(1,3),(1,4),(1,5)],
-               'rf_tfidf__use_idf': (True, False),
-               'rf_clf__max_depth': (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+            'rf_tfidf__use_idf': (True, False),
+            'rf_clf__max_depth': (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
 }
 
 gs_clf = GridSearchCV(random_forest_ngram, parameters, n_jobs=-1)
@@ -207,8 +207,8 @@ gs_clf.cv_results_
 
 #logistic regression parameters
 parameters = {'LogR_tfidf__ngram_range': [(1, 1), (1, 2),(1,3),(1,4),(1,5)],
-               'LogR_tfidf__use_idf': (True, False),
-               'LogR_tfidf__smooth_idf': (True, False)
+            'LogR_tfidf__use_idf': (True, False),
+            'LogR_tfidf__smooth_idf': (True, False)
 }
 
 gs_clf = GridSearchCV(logR_pipeline_ngram, parameters, n_jobs=-1)
@@ -220,9 +220,9 @@ gs_clf.cv_results_
 
 #Linear SVM 
 parameters = {'svm_tfidf__ngram_range': [(1, 1), (1, 2),(1,3),(1,4),(1,5)],
-               'svm_tfidf__use_idf': (True, False),
-               'svm_tfidf__smooth_idf': (True, False),
-               'svm_clf__penalty': ('l1','l2'),
+            'svm_tfidf__use_idf': (True, False),
+            'svm_tfidf__smooth_idf': (True, False),
+            'svm_clf__penalty': ('l1','l2'),
 }
 
 gs_clf = GridSearchCV(svm_pipeline_ngram, parameters, n_jobs=-1)
@@ -282,12 +282,12 @@ def plot_learing_curve(pipeline,title):
     pl.fit(X,y)
     
     train_sizes, train_scores, test_scores = learning_curve(pl, X, y, n_jobs=-1, cv=cv, train_sizes=np.linspace(.1, 1.0, 5), verbose=0)
-       
+    
     train_scores_mean = np.mean(train_scores, axis=1)
     train_scores_std = np.std(train_scores, axis=1)
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
-     
+
     plt.figure()
     plt.title(title)
     plt.legend(loc="best")
@@ -328,24 +328,24 @@ model complexity.
 
 #plotting Precision-Recall curve
 def plot_PR_curve(classifier):
-    
+
     precision, recall, thresholds = precision_recall_curve(Prepocessing.test_news['Label'], classifier)
     average_precision = average_precision_score(Prepocessing.test_news['Label'], classifier)
-    
+
     plt.step(recall, precision, color='b', alpha=0.2,
-             where='post')
+                where='post')
     plt.fill_between(recall, precision, step='post', alpha=0.2,
-                     color='b')
-    
+                        color='b')
+
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.ylim([0.0, 1.05])
     plt.xlim([0.0, 1.0])
     plt.title('2-class Random Forest Precision-Recall curve: AP={0:0.2f}'.format(
-              average_precision))
-    
-plot_PR_curve(predicted_LogR_ngram)
-plot_PR_curve(predicted_rf_ngram)
+                average_precision))
+
+    plot_PR_curve(predicted_LogR_ngram)
+    plot_PR_curve(predicted_rf_ngram)
 
 
 """

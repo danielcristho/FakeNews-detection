@@ -1,12 +1,5 @@
 # FakeNews-detection using Tensorflow&Twilio
 
-### Kelompok 8
-
-| Nama                      | NRP           |
-|---------------------------|---------------|
-|Gloriyano C. Daniel Pepuho |5025201121     |
-|Khuria Khusna              |5025201053     |
-
 ## NB: dataset yg digunakan: https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
 
 ### Processing.py
@@ -14,14 +7,13 @@
 File preprocessing.py berisi semua fungsi preprocessing yang diperlukan untuk memproses semua dokumen dan teks masukan. Pertama kita membaca file data kereta, pengujian dan validasi kemudian melakukan beberapa preprocessing seperti tokenizing, stemming dll. Ada beberapa analisis data eksplorasi yang dilakukan seperti distribusi variabel respon dan pemeriksaan kualitas data seperti nilai nol atau hilang dll.
 
 ```python
-#Stemming
 def stem_tokens(tokens, stemmer):
    stemmed = []
    for token in tokens:
        stemmed.append(stemmer.stem(token))
    return stemmed
 
-#process the data
+
 def process_data(data,exclude_stopword=True,stem=True):
    tokens = [w.lower() for w in data]
    tokens_stemmed = tokens
@@ -30,13 +22,10 @@ def process_data(data,exclude_stopword=True,stem=True):
    return tokens_stemmed
 
 
-#creating ngrams
-#unigram
 def create_unigram(words):
    assert type(words) == list
    return words
 
-#bigram
 def create_bigrams(words):
    assert type(words) == list
    skip = 0
@@ -80,36 +69,6 @@ def features(sentence, index):
 }
 ```
 
-### Clasificaton.py
-
-```python
-n-grams & tfidf confusion matrix and F1 scores
-
-#Naive bayes
- [841 3647]
- [427 5325]
- f1-Score: 0.723262051071
-
-#Logistic regression
- [1617 2871]
- [1097 4655]
- f1-Score: 0.70113000531
-
-#svm
- [2016 2472]
- [1524 4228]
- f1-Score: 0.67909201429
-
-#sgdclassifier
- [  10 4478]
- [  13 5739]
- f1-Score: 0.718731637053
-
-#random forest
- [1979 2509]
- [1630 4122]
- f1-Score: 0.665720333284
-```
 
 ### Prediction.py
 Pengklasifikasi kami yang terakhir dipilih adalah  Logistic Regression yang kemudian disimpan di disk dengan nama final_model.sav. Setelah Anda menutup repositori ini, model ini akan disalin ke mesin pengguna dan akan digunakan oleh file predict.py untuk mengklasifikasikan berita palsu. Dibutuhkan artikel berita sebagai masukan dari pengguna kemudian model digunakan untuk keluaran klasifikasi akhir yang ditampilkan kepada pengguna beserta probabilitas kebenarannya.
@@ -117,7 +76,7 @@ Pengklasifikasi kami yang terakhir dipilih adalah  Logistic Regression yang kemu
 ```python
 import pickle
 
-#function to run for prediction
+
 def detectingFakeNews(var):
     #retrieving the best model for prediction call
     loadModel = pickle.load(open('model/final_model.sav', 'rb'))

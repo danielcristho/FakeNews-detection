@@ -2,7 +2,7 @@
 
 ## NB: dataset yg digunakan: https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
 
-### Processing.py
+<!-- ### Processing.py
 
 File preprocessing.py berisi semua fungsi preprocessing yang diperlukan untuk memproses semua dokumen dan teks masukan. Pertama kita membaca file data kereta, pengujian dan validasi kemudian melakukan beberapa preprocessing seperti tokenizing, stemming dll. Ada beberapa analisis data eksplorasi yang dilakukan seperti distribusi variabel respon dan pemeriksaan kualitas data seperti nilai nol atau hilang dll.
 
@@ -83,5 +83,5 @@ def detectingFakeNews(var):
     prediction = loadModel.predict([var])
     prob = loadModel.predict_proba([var])
 
-    return prediction, prob
+    return prediction, prob -->
 ```

@@ -1,6 +1,6 @@
 # FakeNews-detection using Tensorflow&Twilio
 
-## NB: dataset yg digunakan: https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
+#### NB: dataset yg digunakan: https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
 
 <!-- ### Processing.py
 
@@ -84,4 +84,3 @@ def detectingFakeNews(var):
     prob = loadModel.predict_proba([var])
 
     return prediction, prob -->
-```
